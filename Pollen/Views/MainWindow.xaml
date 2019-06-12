@@ -1,0 +1,499 @@
+﻿<Window x:Class="Pollen.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pollen"
+        mc:Ignorable="d"
+        Title="ПЫЛЬЦА РАСТЕНИЙ"
+        WindowState="Maximized"
+        FontSize="16" Icon="../Resources/icon2.ico">
+    <Window.Resources>
+        <Style TargetType="{x:Type Border}">
+            <!--<Setter Property="Background" Value="Bisque" />-->
+            <Setter Property="TextBlock.FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Button
+                FontSize="16"
+                Width="100"
+                Margin="650,24,10,446"
+                Height="35">диаграммы</Button>
+        <TabControl Name="TabControlPlant">
+            <TabItem x:Name="TabTree" IsSelected="True">
+                <TabItem.Header>
+                    <StackPanel >
+                        <Image Source="../Resources/tree.png" Height="50" OpacityMask="Black"/>
+                        <TextBlock Text="ДРЕВЕСНЫЕ" HorizontalAlignment="Center" FontSize="16"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Menu BorderBrush="Black" BorderThickness="2" Background="DimGray" VerticalAlignment="Center">
+                            <MenuItem Header="ВИДЫ РАСТЕНИЙ" Foreground="White" FontSize="16">
+                                <CheckBox Content="Выбрать всё" Name="cbAll" IsChecked="{Binding IsAllChecked, Mode=TwoWay}"></CheckBox>
+                                <ListBox BorderThickness="1" Name="treeSpecies" ItemsSource="{Binding Items}" SelectedValuePath="Id" SelectedIndex="0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </MenuItem>
+                            <MenuItem Header="РЕДАКТИРОВАНИЕ" Foreground="White" FontSize="16">
+                                <MenuItem Foreground="Black" Click="AddNewItem" Header="Добавление записей в БД"></MenuItem>
+                                <MenuItem Foreground="Black" Header="Редактирование записей в БД"></MenuItem>
+                                <MenuItem Foreground="Black" Click="DelItem" Header="Удаление записей из БД"></MenuItem>
+                            </MenuItem>
+                        </Menu>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.Background>
+                            <ImageBrush  ImageSource="../Resources/treeForGrid.png" Stretch="None"/>
+                        </Grid.Background>
+                        <DataGrid IsReadOnly="True" Name="dataGridTree" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn  x:Name="Column1" Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
+                                <DataGridTextColumn  x:Name="Column2" Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
+
+                                <DataGridTextColumn  x:Name="Column3" Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column4" Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column5" Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column6" Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column7" Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column8" Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column9" Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column10" Binding="{Binding Name}" Header="количество апертур" Width="50"/>
+                                <DataGridTextColumn  x:Name="Column11" Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+                                <!--<DataGridTextColumn  x:Name="Column12" Binding="{Binding PollenColors}" Header="тип апертуры" Width="50">-->
+
+
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Content="CЕМЕЙСТВО" Grid.Row="0" Grid.Column="0"/>
+                                            <Label Content="РОД" Grid.Row="1" Grid.Column="0"/>
+                                            <Label Content="ВИД" Grid.Row="2" Grid.Column="0"/>
+                                            <Label Content="ОСОБЕННОСТИ" Grid.Row="3" Grid.Column="0"/>
+                                            <Label Grid.Row="4" Grid.Column="0">
+                                                <Label.Content>
+                                                    <TextBlock TextWrapping="Wrap">ПРИМЕРНОЕ ВРЕМЯ ПЫЛЕНИЯ</TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                            <Label Content="ЦВЕТ ПЫЛЬЦЫ" Grid.Row="5" Grid.Column="0"/>
+                                            <Border Margin="10 0 0 0" BorderThickness = "1" BorderBrush="Black" Background = "Beige" Padding = "10" Grid.Column="2" Grid.RowSpan="7">
+                                                <Grid >
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (экваториальное положение)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label Grid.Row="0" Grid.Column="1">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (полярное положение)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label Grid.Row="0" Grid.Column="2">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (аномалии)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+
+                                                </Grid>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1">
+                                                <TextBlock/>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
+                                                <TextBlock/>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="1">
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding NameRU}"/>
+                                                    <TextBlock Text="{Binding NameEN}"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.Column="1">
+                                                <TextBlock Text="{Binding PollenFeatures}" />
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Grid.Column="1">
+                                                <TextBlock Text="{Binding DustingTime}" />
+                                            </Border>
+
+
+                                            <ListBox x:Name="Color" 
+                                                         ItemsSource="{Binding PollenColors}" 
+                                                         SelectedValuePath="ID" 
+                                                         SelectedIndex="0" 
+                                                         Width="auto" 
+                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                                         Background = "Beige"
+                                                         Grid.Row="5" Grid.Column="1"
+                                                         BorderBrush="Black">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate >
+                                                        <TextBlock Text="{Binding ColorName}"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </Border >
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabBush">
+                <TabItem.Header>
+                    <StackPanel >
+                        <Image Source="../Resources/bush.png" Height="50"></Image>
+                        <TextBlock Text="КУСТАРНИКОВЫЕ" HorizontalAlignment="Center" FontSize="16"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Menu BorderBrush="Black" BorderThickness="2" Background="DimGray" VerticalAlignment="Center">
+                            <MenuItem Header="ВИДЫ РАСТЕНИЙ" Foreground="White" FontSize="16">
+                                <CheckBox Content="Выбрать всё" Name="cbAllBush" IsChecked="{Binding IsAllChecked, Mode=TwoWay}"></CheckBox>
+                                <ListBox BorderThickness="1" Name="bushSpecies" ItemsSource="{Binding Items}" SelectedValuePath="Id" SelectedIndex="0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate >
+                                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </MenuItem>
+                            <MenuItem Header="РЕДАКТИРОВАНИЕ" Foreground="White" FontSize="16">
+                                <MenuItem Foreground="Black" Click="AddNewItem" Header="Добавление записей в БД"></MenuItem>
+                                <MenuItem Foreground="Black" Header="Редактирование записей в БД"></MenuItem>
+                                <MenuItem Foreground="Black" Click="DelItem" Header="Удаление записей из БД"></MenuItem>
+                            </MenuItem>
+                        </Menu>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.Background>
+                            <ImageBrush  ImageSource="../Resources/bushForGrid.png" Stretch="None"/>
+                        </Grid.Background>
+                        <DataGrid IsReadOnly="True" Name="dataGridBush" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn  x:Name="Column01" Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
+                                <DataGridTextColumn  x:Name="Column02" Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="количество апертур" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="CЕМЕЙСТВО" Grid.Row="0" Grid.Column="0"/>
+                                            <Label Content="РОД" Grid.Row="1" Grid.Column="0"/>
+                                            <Label Content="ВИД" Grid.Row="2" Grid.Column="0"/>
+                                            <Label Content="ОСОБЕННОСТИ" Grid.Row="3" Grid.Column="0"/>
+                                            <Label Grid.Row="4" Grid.Column="0">
+                                                <Label.Content>
+                                                    <TextBlock TextWrapping="Wrap">ПРИМЕРНОЕ ВРЕМЯ ПЫЛЕНИЯ</TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                            <Label Content="ЦВЕТ ПЫЛЬЦЫ" Grid.Row="5" Grid.Column="0"/>
+                                            <Border Margin="10 0 0 0" BorderThickness = "1" BorderBrush="Black" Background = "Beige" Padding = "10" Grid.Column="2" Grid.RowSpan="7">
+                                                <Grid >
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (экваториальное положение)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label Grid.Row="0" Grid.Column="1">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (полярное положение)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label Grid.Row="0" Grid.Column="2">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (аномалии)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+
+                                                </Grid>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1">
+                                                <TextBlock/>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
+                                                <TextBlock/>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="1">
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding NameRU}"/>
+                                                    <TextBlock Text="{Binding NameEN}"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.Column="1">
+                                                <TextBlock Text="{Binding PollenFeatures}" />
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Grid.Column="1">
+                                                <TextBlock Text="{Binding DustingTime}" />
+                                            </Border>
+                                            <ListBox x:Name="Color" 
+                                                         ItemsSource="{Binding PollenColors}" 
+                                                         SelectedValuePath="ID" 
+                                                         SelectedIndex="0" 
+                                                         Width="auto" 
+                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                                         Background = "Beige"
+                                                         Grid.Row="5" Grid.Column="1"
+                                                         BorderBrush="Black">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate >
+                                                        <TextBlock Text="{Binding ColorName}"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </Border >
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="TabGrass">
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image Source="../Resources/grass.png" Height="50"></Image>
+                        <TextBlock Text="ТРАВЯНИСТЫЕ" HorizontalAlignment="Center" FontSize="16" > </TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Menu BorderBrush="Black" BorderThickness="2" Background="DimGray" VerticalAlignment="Center">
+                            <MenuItem Header="ВИДЫ РАСТЕНИЙ" Foreground="White" FontSize="16">
+                                <CheckBox Content="Выбрать всё" Name="cbAllGrass" IsChecked="{Binding IsAllChecked, Mode=TwoWay}"></CheckBox>
+                                <ListBox BorderThickness="1" Name="grassSpecies" ItemsSource="{Binding Items}" SelectedValuePath="Id" SelectedIndex="0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate >
+                                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </MenuItem>
+                            <MenuItem Header="РЕДАКТИРОВАНИЕ" Foreground="White" FontSize="16">
+                                <MenuItem Foreground="Black" Click="AddNewItem" Header="Добавление записей в БД"></MenuItem>
+                                <MenuItem Foreground="Black" Header="Редактирование записей в БД"></MenuItem>
+                                <MenuItem Foreground="Black" Click="DelItem" Header="Удаление записей из БД"></MenuItem>
+                            </MenuItem>
+                        </Menu>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.Background>
+                            <ImageBrush  ImageSource="../Resources/grassForGrid.png" Stretch="None"/>
+                        </Grid.Background>
+                        <DataGrid IsReadOnly="True" Name="grassGridBush" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn   Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
+                                <DataGridTextColumn   Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="количество апертур" Width="50"/>
+                                <DataGridTextColumn   Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="CЕМЕЙСТВО" Grid.Row="0" Grid.Column="0"/>
+                                            <Label Content="РОД" Grid.Row="1" Grid.Column="0"/>
+                                            <Label Content="ВИД" Grid.Row="2" Grid.Column="0"/>
+                                            <Label Content="ОСОБЕННОСТИ" Grid.Row="3" Grid.Column="0"/>
+                                            <Label Grid.Row="4" Grid.Column="0">
+                                                <Label.Content>
+                                                    <TextBlock TextWrapping="Wrap">ПРИМЕРНОЕ ВРЕМЯ ПЫЛЕНИЯ</TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                            <Label Content="ЦВЕТ ПЫЛЬЦЫ" Grid.Row="5" Grid.Column="0"/>
+                                            <Border Margin="10 0 0 0" BorderThickness = "1" BorderBrush="Black" Background = "Beige" Padding = "10" Grid.Column="2" Grid.RowSpan="7">
+                                                <Grid >
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (экваториальное положение)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label Grid.Row="0" Grid.Column="1">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (полярное положение)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label Grid.Row="0" Grid.Column="2">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (аномалии)</TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+
+                                                </Grid>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1">
+                                                <TextBlock/>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
+                                                <TextBlock/>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="1">
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding NameRU}"/>
+                                                    <TextBlock Text="{Binding NameEN}"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.Column="1">
+                                                <TextBlock Text="{Binding PollenFeatures}" />
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Grid.Column="1">
+                                                <TextBlock Text="{Binding DustingTime}" />
+                                            </Border>
+                                            <ListBox x:Name="Color" 
+                                                         ItemsSource="{Binding PollenColors}" 
+                                                         SelectedValuePath="ID" 
+                                                         SelectedIndex="0" 
+                                                         Width="auto" 
+                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                                         Background = "Beige"
+                                                         Grid.Row="5" Grid.Column="1"
+                                                         BorderBrush="Black">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate >
+                                                        <TextBlock Text="{Binding ColorName}"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </Border >
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

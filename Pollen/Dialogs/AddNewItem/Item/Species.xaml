@@ -1,0 +1,329 @@
+﻿<Window x:Class="Pollen.Dialogs.AddNewItem.Item.Species"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pollen.Dialogs.AddNewItem.Item"
+        mc:Ignorable="d"
+        Title="ДОБАВЛЕНИЕ ВИДА В БАЗУ ДАННЫХ"
+        FontSize="16"
+        Height="500"
+        MaxWidth="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="250"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Opacity" Value="0.9"/>
+
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0 25 25 0"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Pollen;component/Resources/PollenForSpecies.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Height="2200">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="500"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="ЛАТИНСКОЕ НАЗВАНИЕ" Grid.Row="0"/>
+                <TextBox Name="SpeciesNameEN"
+                     Grid.Row="0" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Content="РУССКОЕ НАЗВАНИЕ" Grid.Row="1"/>
+                <TextBox Name="SpeciesNameRU"
+                     Grid.Row="1" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Grid.Row="2">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">АЛЬТЕРНАТИВНОЕ РУССКОЕ НАЗВАНИЕ</TextBlock>
+                    </Label.Content>
+                </Label>
+                <TextBox Name="AdditionalNameRU"
+                     Grid.Row="2" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Grid.Row="3">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">ПРИМЕРНОЕ ВРЕМЯ ПЫЛЕНИЯ</TextBlock>
+                    </Label.Content>
+                </Label>
+                <TextBox Name="DustingTime"
+                     Grid.Row="3" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Content="СКУЛЬПТУРА (СМ)" Grid.Row="4"/>
+                <TextBox Name="PollenSculpture"
+                     Grid.Row="4" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Content="СТРУКТУРА АПЕРТУРЫ" Grid.Row="5"/>
+                <TextBox Name="ApertureStructure"
+                     Grid.Row="5" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Content="КОЛИЧЕСТВО АПЕРТУР" Grid.Row="6"/>
+                <TextBox Name="ApertureNumber"
+                     Grid.Row="6" Grid.Column="1"
+                     DataContext="{Binding}"
+                         Width="100"
+                         HorizontalAlignment="Left"/>
+
+                <Label Content="ПОЛОЖЕНИЕ АПЕРТУРЫ" Grid.Row="7"/>
+                <TextBox Name="AperturePosition"
+                     Grid.Row="7" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Content="ТИП АПЕРТУРЫ" Grid.Row="8"/>
+                <TextBox Name="ApertureType"
+                     Grid.Row="8" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+                <Label Content="ОСОБЕННОСТИ" Grid.Row="9"/>
+                <TextBox Name="PollenFeatures"
+                     Grid.Row="9" Grid.Column="1"
+                     DataContext="{Binding}"/>
+
+
+                <Label Grid.Row="10">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">РАЗМЕР ПЫЛЬЦЕВОГО ЗЕРНА В ПОЛЯРНОМ ПОЛОЖЕНИИ (мкм)</TextBlock>
+                    </Label.Content>
+                </Label>
+                <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="ОТ" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox Name="PollenPolarMinSize"
+                             DataContext="{Binding}"
+                             Width="100"/>
+
+                    <TextBlock Text="ДО" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                    <TextBox Name="PollenPolarMaxSize"
+                     DataContext="{Binding}"
+                             Width="100"/>
+                </StackPanel>
+
+                <Label Grid.Row="11">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">РАЗМЕР ПЫЛЬЦЕВОГО ЗЕРНА В ЭКВАТОРИАЛЬНОМ ПОЛОЖЕНИИ (мкм)</TextBlock>
+                    </Label.Content>
+                </Label>
+                <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="ОТ" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox Name="PollenEquatorialMinSize"
+                             DataContext="{Binding}"
+                             Width="100"/>
+
+                    <TextBlock Text="ДО" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                    <TextBox Name="PollenEquatorialMaxSize"
+                     DataContext="{Binding}"
+                             Width="100"/>
+                </StackPanel>
+
+                <Label Grid.Row="12">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">ТОЛЩИНА ЭКЗИНЫ В ПОЛЯРНОМ ПОЛОЖЕНИИ (мкм)</TextBlock>
+                    </Label.Content>
+                </Label>
+                <StackPanel Grid.Row="12" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="ОТ" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox Name="ExinePolarMin"
+                             DataContext="{Binding}"
+                             Width="100"/>
+
+                    <TextBlock Text="ДО" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                    <TextBox Name="ExinePolarMax"
+                     DataContext="{Binding}"
+                             Width="100"/>
+                </StackPanel>
+
+
+                <Label Grid.Row="13">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">ТОЛЩИНА ЭКЗИНЫ В ЭКВАТОРИАЛЬНОМ ПОЛОЖЕНИИ (мкм)</TextBlock>
+                    </Label.Content>
+                </Label>
+                <StackPanel Grid.Row="13" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="ОТ" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox Name="ExineEquatorialMin"
+                             DataContext="{Binding}"
+                             Width="100"/>
+
+                    <TextBlock Text="ДО" FontSize="16" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                    <TextBox Name="ExineEquatorialMax"
+                     DataContext="{Binding}"
+                             Width="100"/>
+                </StackPanel>
+
+                <Label Content="РОД" Grid.Row="14"/>
+                <ComboBox Name="GenusName"
+                      Grid.Row="14" Grid.Column="1" 
+                      DisplayMemberPath="NameRU" 
+                      ItemsSource="{Binding}"
+                      SelectedValuePath="ID"
+                      SelectedIndex="0" />
+                <!--ItemsSource указывает на коллекцию, содержащую все объекты, которые будут показаны в списке-->
+                <!--SelectedValuePath путь по которому из SelectedItem будет получен объект SelectedValue -->
+                <!--DisplayMemberPath указывает на свойство, которое будет применяться для создания отображаемого текста каждого элемента коллекции -->
+                <!--SelectedIndex указывает на индекс записи которая будет отображаться первой в окне-->
+
+                <Label Grid.Row="15">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">ФОРМА ПЫЛЬЦЕВОГО ЗЕРНА В ПОЛЯРНОМ ПОЛОЖЕНИИ</TextBlock>
+                    </Label.Content>
+                </Label>
+                <TextBox Name="PolarGrainShape"
+                         Grid.Row="15" Grid.Column="1"
+                         DataContext="{Binding}"/>
+
+                <Label Grid.Row="16">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">ФОРМА ПЫЛЬЦЕВОГО ЗЕРНА В ЭКВАТОРИАЛЬНОМ ПОЛОЖЕНИИ</TextBlock>
+                    </Label.Content>
+                </Label>
+                <TextBox Name="EquatorialGrainShape"
+                         Grid.Row="16" Grid.Column="1"
+                         DataContext="{Binding}"/>
+
+                <Label Content="ЦВЕТ ПЫЛЬЦЫ" Grid.Row="17"/>
+                <TextBox Name="PollenColor"
+                         Grid.Row="17" Grid.Column="1"
+                         DataContext="{Binding}"/>
+
+                <Label Content="ИЗОБРАЖЕНИЕ (НОРМА):" Grid.Row="18" VerticalAlignment="Bottom"/>
+                <Label Content="-------------------------------------" Grid.Row="19"  VerticalAlignment="Bottom"/>
+
+                <Label Content="ПОЛЯРНОЕ ПОЛОЖЕНИЕ" Grid.Row="20"/>
+                <StackPanel Grid.Row="20" Grid.Column="1" HorizontalAlignment="Stretch" Orientation="Horizontal"  Margin="20 -15 0 0">
+                    <Button Name="PolarImage1"
+                            Click="buttonPolarImage1_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 1"/>
+
+                    <Button Name="PolarImage2"
+                            Click="buttonPolarImage2_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 2"/>
+
+                    <Button Name="PolarImage3"
+                            Click="buttonPolarImage3_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 3"/>
+                </StackPanel>
+
+                <Label Grid.Row="21">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">ЭКВАТОРИАЛЬНОЕ ПОЛОЖЕНИЕ</TextBlock>
+                    </Label.Content>
+                </Label>
+                <StackPanel Grid.Row="21" Grid.Column="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Margin="20 -15 0 0">
+                    <Button Name="EquatorialImage1"
+                            Click="buttonEquatorialImage1_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 1"/>
+
+                    <Button Name="EquatorialImage2"
+                            Click="buttonEquatorialImage2_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 2"/>
+
+                    <Button Name="EquatorialImage3"
+                            Click="buttonEquatorialImage3_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 3"/>
+                </StackPanel>
+
+                <Label Content="-------------------------------------" Grid.Row="22" VerticalAlignment="Bottom"/>
+
+
+                <Label Content="ИЗОБРАЖЕНИЕ (АНОМАЛИИ)" Grid.Row="23"/>
+                <StackPanel Grid.Row="23" Grid.Column="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Margin="20 -15 0 0">
+                    <Button Name="AbnormalImage1"
+                            Click="buttonAbnormalImage1_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 1"/>
+
+                    <Button Name="AbnormalImage2"
+                            Click="buttonAbnormalImage2_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 2"/>
+
+                    <Button Name="AbnormalImage3"
+                            Click="buttonAbnormalImage3_Click"
+                            Width="135"
+                            Content="ИЗОБРАЖЕНИЕ 3"/>
+                </StackPanel>
+
+
+                <Button Name="buttonOk"
+                        Content="ГОТОВО"
+                        Grid.Row="25" Grid.Column="1" 
+                        HorizontalAlignment="Center"
+                        Click="buttonOk_Click"
+                        Width="100"/>
+
+                <Button IsCancel="True" 
+                        Grid.Row="25" Grid.Column="1" 
+                        HorizontalAlignment="Right"
+                        Content="ОТМЕНА"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

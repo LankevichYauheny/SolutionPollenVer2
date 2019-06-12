@@ -1,0 +1,35 @@
+﻿<Window x:Class="Pollen.Dialogs.DelExistingItem.Del"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pollen.Dialogs.DelExistingItem"
+        mc:Ignorable="d"
+        Title="УДАЛЕНИЕ ЗАПИСЕЙ ИЗ БАЗЫ ДАННЫХ"
+        FontSize="16"
+        Width="543.826" Height="421.391"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        >
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Pollen;component/Resources/PollenForDel.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Width="400" Margin="49,20" Opacity="0.95">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Margin="15" VerticalAlignment="Stretch" Click="DelFamily" FontSize="16">СЕМЕЙСТВО</Button>
+            <Button Grid.Row="1" Margin="15" VerticalAlignment="Stretch" Click="DelGenus" FontSize="16">РОД</Button>
+            <Button Grid.Row="2" Margin="15" VerticalAlignment="Stretch" Click="DelSpecies" FontSize="16">ВИД</Button>
+        </Grid>
+        <Button IsCancel="True" HorizontalAlignment="Center" Width="100" Grid.Row="1" Height="35" Opacity="0.9" FontSize="16">ОТМЕНА</Button>
+    </Grid>
+</Window>
