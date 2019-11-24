@@ -145,7 +145,7 @@ namespace Pollen.BusinessLayer.Services
         }
 
 
-        public SortedList<int, string> GetSpeciesOfForm(int idForm)
+        public SortedList<int, string> GetPlantTypesOfForm(int idForm)
         {
             //Mapper.Reset();
             //Mapper.Initialize(cfg => {
@@ -153,7 +153,7 @@ namespace Pollen.BusinessLayer.Services
             //});
             //var plantType = Mapper.Map<ObservableCollection<PlantTypeViewModel>>(dataBase.PlantTypes.GetSelected(idForm));
 
-            return dataBase.PlantTypes.GetSpeciesOfForm(idForm);
+            return dataBase.PlantTypes.GetPlantTypesOfForm(idForm);
         }
 
     }

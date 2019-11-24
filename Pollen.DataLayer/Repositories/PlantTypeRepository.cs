@@ -31,7 +31,7 @@ namespace Pollen.DataLayer.Repositories
                                      .Where(predicate);
         }
 
-        public SortedList<int, string> GetSpeciesOfForm(int idForm)
+        public SortedList<int, string> GetPlantTypesOfForm(int idForm)
         {
             SortedList<int, string> plantTypes = new SortedList<int, string>();
             var result = from form in db.Forms
@@ -50,29 +50,7 @@ namespace Pollen.DataLayer.Repositories
             return plantTypes;
         }
 
-
-        //public GetFullSpecies(int idPlantType)
-        //{
-        //    SortedList<int, string> plantTypes = new SortedList<int, string>();
-        //    var result = from form in db.Forms
-        //                 join family in db.Families on form.ID equals family.ID_Form
-        //                 join genus in db.Genera on family.ID equals genus.ID_Family
-        //                 join plantType in db.PlantTypes on genus.ID equals plantType.ID_Genus
-        //                 where form.ID == idForm
-        //                 select new
-        //                 {
-        //                     ID = plantType.ID,
-        //                     Name = plantType.NameRU
-        //                 };
-
-        //    foreach (var r in result)
-        //    {
-        //        plantTypes.Add(r.ID, r.Name);
-        //    }
-        //    return plantTypes;
-        //}
-
-
+               
         public PlantType Get(int id)
         {
             return db.PlantTypes.Find(id);
@@ -80,8 +58,12 @@ namespace Pollen.DataLayer.Repositories
 
         public IEnumerable<PlantType> GetAll()
         {
-            return db.PlantTypes.Include(g => g.PolarGrainShapes)
-                                .Include(g => g.EquatorialGrainShapes)
+            return db.PlantTypes.Include(p => p.PolarGrainShapes)
+                                .Include(p => p.EquatorialGrainShapes)
+                                .Include(p => p.AbnormalImages)
+                                .Include(p => p.EquatorialImages)
+                                .Include(p => p.AbnormalImages)
+                                .Include(p => p.Genus)
                                 .ToList();
         }
 

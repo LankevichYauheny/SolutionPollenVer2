@@ -7,7 +7,7 @@ namespace Pollen.BusinessLayer.Interfaces
     public interface IPlantTypeService
     {
         ObservableCollection<PlantTypeViewModel> GetAll();
-        SortedList<int, string> GetSpeciesOfForm(int idForm);
+        SortedList<int, string> GetPlantTypesOfForm(int idForm);
         PlantTypeViewModel Get(int id);
         void AddPolarImageToPlantType(int plantTypeId, PolarImageViewModel polarImage);
         void AddEquatorialImageToPlantType(int plantTypeId, EquatorialImageViewModel equatorialImage);

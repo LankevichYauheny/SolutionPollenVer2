@@ -9,7 +9,7 @@ namespace Pollen.ViewModels
     {
         public CheckedListBox(IPlantTypeService plantTypeService, int idForm)
         {
-            var i = plantTypeService.GetSpeciesOfForm(idForm);
+            var i = plantTypeService.GetPlantTypesOfForm(idForm);
             Items = new List<Species>();
             foreach (var temp in i)
             {

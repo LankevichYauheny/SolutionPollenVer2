@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+
 
 namespace Pollen.Models
 {
-
     public class Species : INotifyPropertyChanged
     {
-        private int _id;
-        public int Id
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-            }
-        }
-
+        public int Id { get; set; }
         private string _name;
         public string Name
         {
@@ -42,17 +28,10 @@ namespace Pollen.Models
                 OnPropertyChanged("IsChecked");
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler pceh = PropertyChanged;
-            if (pceh != null)
-            {
-                pceh(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

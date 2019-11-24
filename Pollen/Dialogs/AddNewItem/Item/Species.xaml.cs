@@ -6,15 +6,25 @@ using Pollen.BusinessLayer.ViewModels;
 using Pollen.BusinessLayer.Services;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
+using System.Collections.Generic;
 namespace Pollen.Dialogs.AddNewItem.Item
 {
     public partial class Species : Window
     {
         ObservableCollection<GenusViewModel> genus;
         IGenusService genusService;
+        private PlantTypeViewModel _plantTypeVM;
+        private Dictionary<int, string> _pathsToPolarImages;
+        private Dictionary<int, string> _pathsToEquatorialImages;
+        private Dictionary<int, string> _pathsToAbnormalImages;
+        
         public Species()
         {
             InitializeComponent();
+            _plantTypeVM = new PlantTypeViewModel();
+            _pathsToPolarImages = new Dictionary<int, string>();
+            _pathsToEquatorialImages = new Dictionary<int, string> ();
+            _pathsToAbnormalImages = new Dictionary<int, string>();
             genusService = new GenusService("Context");
             genus = genusService.GetAll();
             GenusName.DataContext = genus;
@@ -59,13 +69,13 @@ namespace Pollen.Dialogs.AddNewItem.Item
                 {
                     try
                     {
-                        var plantTypeVM = new PlantTypeViewModel();
-                        plantTypeVM.NameEN = SpeciesNameEN.Text;
-                        plantTypeVM.NameRU = SpeciesNameRU.Text;
+                        _plantTypeVM.NameEN = SpeciesNameEN.Text;
+                        _plantTypeVM.NameRU = SpeciesNameRU.Text;
+                        //_plantTypeVM.PolarImages.Add(_polarImage);
                         var genus = (GenusViewModel)GenusName.SelectedItem;
-                        genus.PlantTypes.Add(plantTypeVM);
-                        genusService.AddPlantTypeToGenus(genus.ID, plantTypeVM);
-                        genus.PlantTypes.Add(plantTypeVM);
+                        genus.PlantTypes.Add(_plantTypeVM);
+                        genusService.AddPlantTypeToGenus(genus.ID, _plantTypeVM);
+                        genus.PlantTypes.Add(_plantTypeVM);
                         Close();
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException)
@@ -89,7 +99,8 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                var dlg1 = dlg.
+                _pathsToPolarImages.Add(1, dlg.FileName);
                 PolarImage1.Background = Brushes.Green;
             }
         }
@@ -104,7 +115,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToPolarImages.Add(2, dlg.FileName);
                 PolarImage2.Background = Brushes.Green;
             }
         }
@@ -119,7 +130,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToPolarImages.Add(3, dlg.FileName);
                 PolarImage3.Background = Brushes.Green;
             }
         }
@@ -134,7 +145,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToEquatorialImages.Add(1, dlg.FileName);
                 EquatorialImage1.Background = Brushes.Green;
             }
         }
@@ -149,7 +160,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToEquatorialImages.Add(2, dlg.FileName);
                 EquatorialImage2.Background = Brushes.Green;
             }
         }
@@ -164,7 +175,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToEquatorialImages.Add(3, dlg.FileName);
                 EquatorialImage3.Background = Brushes.Green;
             }
         }
@@ -179,7 +190,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToAbnormalImages.Add(1, dlg.FileName);
                 AbnormalImage1.Background = Brushes.Green;
             }
         }
@@ -194,7 +205,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToAbnormalImages.Add(2, dlg.FileName);
                 AbnormalImage2.Background = Brushes.Green;
             }
         }
@@ -209,7 +220,7 @@ namespace Pollen.Dialogs.AddNewItem.Item
 
             if (dlg.ShowDialog() == true)
             {
-                var path = dlg.FileName;
+                _pathsToAbnormalImages.Add(3, dlg.FileName);
                 AbnormalImage3.Background = Brushes.Green;
             }
         }
