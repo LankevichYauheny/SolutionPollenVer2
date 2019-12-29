@@ -8,11 +8,6 @@ namespace Pollen.DataLayer.Entities
     [Table("AbnormalImages")]
     public class AbnormalImage
     {
-        public AbnormalImage()
-        {
-            PlantTypes = new List<PlantType>();
-        }
-
         [Key]
         public Guid FileID { get; set; }
 
@@ -23,6 +18,8 @@ namespace Pollen.DataLayer.Entities
 
 
         //навигационное свойство
-        public List<PlantType> PlantTypes { get; set; }
+        public int ID_PlantType { get; set; }
+        public PlantType PlantType { get; set; }
+
     }
 }

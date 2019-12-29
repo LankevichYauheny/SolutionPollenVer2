@@ -28,7 +28,7 @@ namespace Pollen.DataLayer.Repositories
         public IEnumerable<EquatorialImage> Find(Func<EquatorialImage, bool> predicate)
         {
             return context.EquatorialImages
-                          .Include(g => g.PlantTypes)
+                          .Include(g => g.PlantType)
                           .Where(predicate)
                           .ToList();
         }
@@ -40,7 +40,7 @@ namespace Pollen.DataLayer.Repositories
 
         public IEnumerable<EquatorialImage> GetAll()
         {
-            return context.EquatorialImages.Include(g => g.PlantTypes);
+            return context.EquatorialImages.Include(g => g.PlantType);
         }
 
         public IEnumerable<EquatorialImage> GetSelected(int id)

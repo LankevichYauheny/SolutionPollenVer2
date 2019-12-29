@@ -113,7 +113,8 @@ namespace Pollen.BusinessLayer.Services
 
         public void DeletePlantType(int plantTypeId)
         {
-            throw new NotImplementedException();
+            dataBase.PlantTypes.Delete(plantTypeId);
+            dataBase.Save();
         }
         public void UpdatePlantType(PlantTypeViewModel plantType)
         {

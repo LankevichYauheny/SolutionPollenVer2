@@ -3,14 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Pollen"
         mc:Ignorable="d"
         Title="ПЫЛЬЦА РАСТЕНИЙ"
         WindowState="Maximized"
         FontSize="16" Icon="../Resources/icon2.ico">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
-            <!--<Setter Property="Background" Value="Bisque" />-->
             <Setter Property="TextBlock.FontSize" Value="14" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="1" />
@@ -19,11 +17,9 @@
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="HorizontalContentAlignment" Value="Right"/>
-
         </Style>
     </Window.Resources>
     <Grid>
@@ -32,7 +28,7 @@
                 Width="100"
                 Margin="650,24,10,446"
                 Height="35">диаграммы</Button>
-        <TabControl Name="TabControlPlant">
+        <TabControl>
             <TabItem x:Name="TabTree" IsSelected="True">
                 <TabItem.Header>
                     <StackPanel >
@@ -49,8 +45,8 @@
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Menu BorderBrush="Black" BorderThickness="2" Background="DimGray" VerticalAlignment="Center">
                             <MenuItem Header="ВИДЫ РАСТЕНИЙ" Foreground="White" FontSize="16">
-                                <CheckBox Content="Выбрать всё" Name="cbAll" IsChecked="{Binding IsAllChecked, Mode=TwoWay}"></CheckBox>
-                                <ListBox BorderThickness="1" Name="treeSpecies" ItemsSource="{Binding Items}" SelectedValuePath="Id" SelectedIndex="0">
+                                <CheckBox Content="Выбрать всё" IsChecked="{Binding Tree.IsAllChecked, Mode=TwoWay}"></CheckBox>
+                                <ListBox BorderThickness="1" ItemsSource="{Binding Tree.Items}" SelectedValuePath="Id" SelectedIndex="0">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Name}"/>
@@ -69,20 +65,20 @@
                         <Grid.Background>
                             <ImageBrush  ImageSource="../Resources/treeForGrid.png" Stretch="None"/>
                         </Grid.Background>
-                        <DataGrid IsReadOnly="True" Name="dataGridTree" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                        <DataGrid ItemsSource="{Binding Species}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
                             <DataGrid.Columns>
-                                <DataGridTextColumn  x:Name="Column1" Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
-                                <DataGridTextColumn  x:Name="Column2" Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
+                                <DataGridTextColumn Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
+                                <DataGridTextColumn Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
 
-                                <DataGridTextColumn  x:Name="Column3" Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column4" Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column5" Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column6" Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column7" Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column8" Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column9" Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column10" Binding="{Binding Name}" Header="количество апертур" Width="50"/>
-                                <DataGridTextColumn  x:Name="Column11" Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="количество апертур" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
                                 <!--<DataGridTextColumn  x:Name="Column12" Binding="{Binding PollenColors}" Header="тип апертуры" Width="50">-->
 
 
@@ -192,7 +188,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TabBush">
+            <TabItem>
                 <TabItem.Header>
                     <StackPanel >
                         <Image Source="../Resources/bush.png" Height="50"></Image>
@@ -207,8 +203,8 @@
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Menu BorderBrush="Black" BorderThickness="2" Background="DimGray" VerticalAlignment="Center">
                             <MenuItem Header="ВИДЫ РАСТЕНИЙ" Foreground="White" FontSize="16">
-                                <CheckBox Content="Выбрать всё" Name="cbAllBush" IsChecked="{Binding IsAllChecked, Mode=TwoWay}"></CheckBox>
-                                <ListBox BorderThickness="1" Name="bushSpecies" ItemsSource="{Binding Items}" SelectedValuePath="Id" SelectedIndex="0">
+                                <CheckBox Content="Выбрать всё" IsChecked="{Binding Bush.IsAllChecked, Mode=TwoWay}"></CheckBox>
+                                <ListBox BorderThickness="1" ItemsSource="{Binding Bush.Items}" SelectedValuePath="Id" SelectedIndex="0">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate >
                                             <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Name}"/>
@@ -227,19 +223,19 @@
                         <Grid.Background>
                             <ImageBrush  ImageSource="../Resources/bushForGrid.png" Stretch="None"/>
                         </Grid.Background>
-                        <DataGrid IsReadOnly="True" Name="dataGridBush" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                        <DataGrid ItemsSource="{Binding Species}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
                             <DataGrid.Columns>
-                                <DataGridTextColumn  x:Name="Column01" Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
-                                <DataGridTextColumn  x:Name="Column02" Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="количество апертур" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
+                                <DataGridTextColumn Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="количество апертур" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
                             </DataGrid.Columns>
                             <DataGrid.RowDetailsTemplate>
                                 <DataTemplate>
@@ -358,8 +354,8 @@
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Menu BorderBrush="Black" BorderThickness="2" Background="DimGray" VerticalAlignment="Center">
                             <MenuItem Header="ВИДЫ РАСТЕНИЙ" Foreground="White" FontSize="16">
-                                <CheckBox Content="Выбрать всё" Name="cbAllGrass" IsChecked="{Binding IsAllChecked, Mode=TwoWay}"></CheckBox>
-                                <ListBox BorderThickness="1" Name="grassSpecies" ItemsSource="{Binding Items}" SelectedValuePath="Id" SelectedIndex="0">
+                                <CheckBox Content="Выбрать всё" IsChecked="{Binding Grass.IsAllChecked, Mode=TwoWay}"></CheckBox>
+                                <ListBox BorderThickness="1" ItemsSource="{Binding Grass.Items}" SelectedValuePath="Id" SelectedIndex="0">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate >
                                             <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Name}"/>
@@ -378,19 +374,19 @@
                         <Grid.Background>
                             <ImageBrush  ImageSource="../Resources/grassForGrid.png" Stretch="None"/>
                         </Grid.Background>
-                        <DataGrid IsReadOnly="True" Name="grassGridBush" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                        <DataGrid ItemsSource="{Binding Species}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
                             <DataGrid.Columns>
-                                <DataGridTextColumn   Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
-                                <DataGridTextColumn   Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="количество апертур" Width="50"/>
-                                <DataGridTextColumn   Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
+                                <DataGridTextColumn Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="количество апертур" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
                             </DataGrid.Columns>
                             <DataGrid.RowDetailsTemplate>
                                 <DataTemplate>

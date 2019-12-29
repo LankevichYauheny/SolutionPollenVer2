@@ -29,7 +29,7 @@ namespace Pollen.DataLayer.Repositories
         public IEnumerable<PolarImage> Find(Func<PolarImage, bool> predicate)
         {
             return context.PolarImages
-                          .Include(g => g.PlantTypes)
+                          .Include(g => g.PlantType)
                           .Where(predicate)
                           .ToList();
         }
@@ -41,7 +41,7 @@ namespace Pollen.DataLayer.Repositories
 
         public IEnumerable<PolarImage> GetAll()
         {
-            return context.PolarImages.Include(g => g.PlantTypes);
+            return context.PolarImages.Include(g => g.PlantType);
         }
 
         public IEnumerable<PolarImage> GetSelected(int id)

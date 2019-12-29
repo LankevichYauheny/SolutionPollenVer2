@@ -32,31 +32,27 @@ namespace Pollen.DataLayer.EntityFrameworkContext
                         .WillCascadeOnDelete(true);//метод WillCascadeOnDelete(false) включает каскадное удаление
 
             modelBuilder.Entity<Form>()
-                        .HasMany(e => e.Families)//метод HasMany() устанавливает множественную связь между объектом Form и объектами Families
-                        .WithRequired(e => e.Form)//метод WithRequired() требует обязательной установки свойства Form у класса Family
-                        .HasForeignKey(e => e.ID_Form)//метод HasForeignKey() переопределяет название столбца и внешнего ключа на ID_Form
-            //свойство ID_Form имеет тип int и поэтому при генерации таблицы будет действовать правило ON DELETE CASCADE
-                        .WillCascadeOnDelete(false);//метод WillCascadeOnDelete(false) отключает каскадное удаление
+                        .HasMany(e => e.Families)
+                        .WithRequired(e => e.Form)
+                        .HasForeignKey(e => e.ID_Form)
+                        .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Genus>()
-                        .HasMany(e => e.PlantTypes)//метод HasMany() устанавливает множественную связь между объектом Genus и объектами PlantTypes
-                        .WithRequired(e => e.Genus)//метод WithRequired() требует обязательной установки свойства Genus у класса PlantType
-                        .HasForeignKey(e => e.ID_Genus)//метод HasForeignKey() переопределяет название столбца и внешнего ключа на ID_Genus
-            //свойство ID_Genus имеет тип int и поэтому при генерации таблицы будет действовать правило ON DELETE CASCADE
-                        .WillCascadeOnDelete(true);//метод WillCascadeOnDelete(false) отключает каскадное удаление
+                        .HasMany(e => e.PlantTypes)
+                        .WithRequired(e => e.Genus)
+                        .HasForeignKey(e => e.ID_Genus)
+                        .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<EquatorialGrainShape>()
-                        .HasMany(e => e.PlantTypes)//метод HasMany устанавливает множественную связь между объектом EquatorialGrainShape и  объектами PlantTypes
-                        .WithMany(e => e.EquatorialGrainShapes)//метод WithMany устанавливает обратную множественную связь между объектом PlantType и объектами EquatorialGrainShapes
-            //нас не устраивает автоматически генерируемое название промежуточной таблицы и её столбцов в БД, и мы их переопределяем методом Map
+                        .HasMany(e => e.PlantTypes)
+                        .WithMany(e => e.EquatorialGrainShapes)
                         .Map(m => m.ToTable("EquatorialPositions")
                         .MapLeftKey("ID_EquatorialGrainShape")
                         .MapRightKey("ID_PlantType"));
 
             modelBuilder.Entity<PolarGrainShape>()
-                        .HasMany(e => e.PlantTypes)//метод HasMany устанавливает множественную связь между объектом PolarGrainShape и  объектами PlantTypes
-                        .WithMany(e => e.PolarGrainShapes)//метод WithMany устанавливает обратную множественную связь между объектом PlantType и объектами PolarGrainShapes
-            //нас не устраивает автоматически генерируемое название промежуточной таблицы и её столбцов в БД, и мы их переопределяем методом Map
+                        .HasMany(e => e.PlantTypes)
+                        .WithMany(e => e.PolarGrainShapes)
                         .Map(m => m.ToTable("PolarPositions")
                         .MapLeftKey("ID_PolarGrainShape")
                         .MapRightKey("ID_PlantType"));
@@ -105,29 +101,23 @@ namespace Pollen.DataLayer.EntityFrameworkContext
 
 
             modelBuilder.Entity<PlantType>()
-                .HasMany(e => e.PolarImages) //метод HasMany устанавливает множественную связь между объектом PlantType и объектами PolarImages
-                .WithMany(e => e.PlantTypes) //метод WithMany устанавливает обратную множественную связь между объектом PolarImage и объектами PlantTypes
-            //нас не устраивает автоматически генерируемое название промежуточной таблицы и её столбцов в БД, и мы их переопределяем методом Map
-                .Map(m => m.ToTable("PolarImages_PlantTypes")
-                .MapLeftKey("ID_PlantType")
-                .MapRightKey("ID_PolarImage"));
+                .HasMany(e => e.PolarImages)//метод HasMany() устанавливает множественную связь между объектом PlantType и объектами PolarImages
+                .WithRequired(e => e.PlantType)//метод WithRequired() требует обязательной установки свойства PlantType у класса PolarImages
+                .HasForeignKey(e => e.ID_PlantType)//метод HasForeignKey() переопределяет название столбца и внешнего ключа на ID_PlantType
+                //свойство ID_PlantType имеет тип int и поэтому при генерации таблицы будет действовать правило ON DELETE CASCADE
+                .WillCascadeOnDelete(true);//метод WillCascadeOnDelete(false) отключает каскадное удаление
 
-            modelBuilder.Entity<EquatorialImage>()
-                .HasMany(e => e.PlantTypes) //метод HasMany устанавливает множественную связь между объектом PlantType и объектами EquatorialImages
-                .WithMany(e => e.EquatorialImages) // метод WithMany устанавливает обратную множественную связь между объектом VEquatorialImage и объектами PlantTypes
-            //нас не устраивает автоматически генерируемое название промежуточной таблицы и её столбцов в БД, и мы их переопределяем методом Map
-                .Map(m => m.ToTable("EquatorialImages_PlantTypes")
-                .MapLeftKey("ID_PlantType")
-                .MapRightKey("ID_EquatorialImage"));
+            modelBuilder.Entity<PlantType>()
+                .HasMany(e => e.EquatorialImages)
+                .WithRequired(e => e.PlantType)
+                .HasForeignKey(e => e.ID_PlantType)
+                .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<AbnormalImage>()
-                .HasMany(e => e.PlantTypes) //метод HasMany устанавливает множественную связь между объектом PlantType и объектами AbnormalImages
-                .WithMany(e => e.AbnormalImages) //метод WithMany устанавливает обратную множественную связь между объектом AbnormalImage и объектами PlantTypes
-            //нас не устраивает автоматически генерируемое название промежуточной таблицы и её столбцов в БД, и мы их переопределяем методом Map
-                .Map(m => m.ToTable("AbnormalImages_PlantTypes")
-                .MapLeftKey("ID_PlantType")
-                .MapRightKey("ID_AbnormalImage"));
-
+            modelBuilder.Entity<PlantType>()
+                .HasMany(e => e.AbnormalImages)
+                .WithRequired(e => e.PlantType)
+                .HasForeignKey(e => e.ID_PlantType)
+                .WillCascadeOnDelete(true);
 
             base.OnModelCreating(modelBuilder);
         }

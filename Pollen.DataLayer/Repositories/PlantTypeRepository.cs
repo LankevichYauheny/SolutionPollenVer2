@@ -60,10 +60,10 @@ namespace Pollen.DataLayer.Repositories
         {
             return db.PlantTypes.Include(p => p.PolarGrainShapes)
                                 .Include(p => p.EquatorialGrainShapes)
-                                .Include(p => p.AbnormalImages)
-                                .Include(p => p.EquatorialImages)
-                                .Include(p => p.AbnormalImages)
-                                .Include(p => p.Genus)
+                                //.Include(p => p.AbnormalImages)
+                                //.Include(p => p.EquatorialImages)
+                                //.Include(p => p.AbnormalImages)
+                                //.Include(p => p.Genus)
                                 .ToList();
         }
 

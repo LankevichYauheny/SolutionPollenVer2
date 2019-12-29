@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 namespace Pollen.Dialogs.DelExistingItem
 {
 
-    public partial class Del : Window
+    public partial class Del
     {
 
         public Del()
@@ -20,20 +20,21 @@ namespace Pollen.Dialogs.DelExistingItem
 
         private void DelFamily(object sender, RoutedEventArgs e)
         {
-            var dialog = new Dialogs.DelExistingItem.Items.Family();
+            var dialog = new Items.Family();
             dialog.ShowDialog();
         }
 
         private void DelGenus(object sender, RoutedEventArgs e)
         {
 
-            var diglog = new Dialogs.DelExistingItem.Items.Genus();
-            diglog.ShowDialog();
+            var dialog = new Items.Genus();
+            dialog.ShowDialog();
         }
 
         private void DelSpecies(object sender, RoutedEventArgs e)
         {
-
+            var dialog = new Items.PlantType();
+            dialog.ShowDialog();
         }
     }
 }
