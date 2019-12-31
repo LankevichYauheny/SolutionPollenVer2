@@ -20,7 +20,10 @@ namespace Pollen.ViewModels
             Tree = new CheckedListBox(plantTypeService, 1);
             Bush = new CheckedListBox(plantTypeService, 2);
             Grass = new CheckedListBox(plantTypeService, 3);
-            Species = plantTypeService.GetAll();
+
+            TreesSpecies = plantTypeService.GetPlantTypes(1);
+            BushesSpecies = plantTypeService.GetPlantTypes(2);
+            GrassesSpecies = plantTypeService.GetPlantTypes(3);
         }
 
         private CheckedListBox _tree;
@@ -56,14 +59,36 @@ namespace Pollen.ViewModels
             }
         }
 
-        private ObservableCollection<PlantTypeViewModel> _species;
-        public ObservableCollection<PlantTypeViewModel> Species
+        private ObservableCollection<PlantTypeViewModel> _treesSpecies;
+        public ObservableCollection<PlantTypeViewModel> TreesSpecies
         {
-            get { return _species; }
+            get { return _treesSpecies; }
             set
             {
-                _species = value;
-                OnPropertyChanged("Species");
+                _treesSpecies = value;
+                OnPropertyChanged("TreesSpecies");
+            }
+        }
+
+        private ObservableCollection<PlantTypeViewModel> _bushesSpecies;
+        public ObservableCollection<PlantTypeViewModel> BushesSpecies
+        {
+            get { return _bushesSpecies; }
+            set
+            {
+                _bushesSpecies = value;
+                OnPropertyChanged("BushesSpecies");
+            }
+        }
+
+        private ObservableCollection<PlantTypeViewModel> _grassesSpecies;
+        public ObservableCollection<PlantTypeViewModel> GrassesSpecies
+        {
+            get { return _grassesSpecies; }
+            set
+            {
+                _grassesSpecies = value;
+                OnPropertyChanged("GrassesSpecies");
             }
         }
 

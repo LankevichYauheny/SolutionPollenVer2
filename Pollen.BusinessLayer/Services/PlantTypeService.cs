@@ -23,8 +23,6 @@ namespace Pollen.BusinessLayer.Services
         {
             Mapper.Reset();
             var plantType = dataBase.PlantTypes.Get(plantTypeId);
-
-            // конфигурирование AutoMapper. Отображение объекта PolarImageViewModel на объект PolarImage. Тип слева - тип источника, а тип справа - тип назначения
             Mapper.Initialize(cfg => cfg.CreateMap<PolarImageViewModel, PolarImage>());
             var img = Mapper.Map<PolarImage>(polarImage);
             plantType.PolarImages.Add(img);
@@ -35,8 +33,6 @@ namespace Pollen.BusinessLayer.Services
         {
             Mapper.Reset();
             var plantType = dataBase.PlantTypes.Get(plantTypeId);
-
-            // конфигурирование AutoMapper. Отображение объекта EquatorialImageViewModel на объект EquatorialImage. Тип слева - тип источника, а тип справа - тип назначения
             Mapper.Initialize(cfg => cfg.CreateMap<EquatorialImageViewModel, EquatorialImage>());
             var img = Mapper.Map<EquatorialImage>(equatorialImage);
             plantType.EquatorialImages.Add(img);
@@ -47,8 +43,6 @@ namespace Pollen.BusinessLayer.Services
         {
             Mapper.Reset();
             var plantType = dataBase.PlantTypes.Get(plantTypeId);
-
-            // конфигурирование AutoMapper. Отображение объекта AbnormalImageViewModel на объект AbnormalImage. Тип слева - тип источника, а тип справа - тип назначения
             Mapper.Initialize(cfg => cfg.CreateMap<AbnormalImageViewModel, AbnormalImage>());
             var img = Mapper.Map<AbnormalImage>(abnormalImage);
             plantType.AbnormalImages.Add(img);
@@ -59,8 +53,6 @@ namespace Pollen.BusinessLayer.Services
         {
             Mapper.Reset();
             var plantType = dataBase.PlantTypes.Get(plantTypeId);
-
-            // конфигурирование AutoMapper. Отображение объекта VAbnormalImageViewModel на объект VAbnormalImage. Тип слева - тип источника, а тип справа - тип назначения
             Mapper.Initialize(cfg => cfg.CreateMap<EquatorialGrainShapeViewModel, EquatorialGrainShape>());
             var shape = Mapper.Map<EquatorialGrainShape>(equatorialGrainShape);
             plantType.EquatorialGrainShapes.Add(shape);
@@ -71,8 +63,6 @@ namespace Pollen.BusinessLayer.Services
         {
             Mapper.Reset();
             var plantType = dataBase.PlantTypes.Get(plantTypeId);
-
-            // конфигурирование AutoMapper. Отображение объекта PolarGrainShapeViewModel на объект PolarGrainShape. Тип слева - тип источника, а тип справа - тип назначения
             Mapper.Initialize(cfg => cfg.CreateMap<PolarGrainShapeViewModel, PolarGrainShape>());
             var shape = Mapper.Map<PolarGrainShape>(polarGrainShape);
             plantType.PolarGrainShapes.Add(shape);
@@ -129,7 +119,6 @@ namespace Pollen.BusinessLayer.Services
         public ObservableCollection<PlantTypeViewModel> GetAll()
         {
             Mapper.Reset();
-            // Конфигурировани AutoMapper
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<PlantType, PlantTypeViewModel>();
                 cfg.CreateMap<Genus, GenusViewModel>();
@@ -140,7 +129,6 @@ namespace Pollen.BusinessLayer.Services
 
             });
 
-            // Отображение List<PlantType> на ObservableCollection<PlantTypeViewModel>
             var plantType = Mapper.Map<ObservableCollection<PlantTypeViewModel>>(dataBase.PlantTypes.GetAll());
             return plantType;
         }
@@ -148,14 +136,25 @@ namespace Pollen.BusinessLayer.Services
 
         public SortedList<int, string> GetPlantTypesOfForm(int idForm)
         {
-            //Mapper.Reset();
-            //Mapper.Initialize(cfg => {
-            //    cfg.CreateMap<PlantType, PlantTypeViewModel>();
-            //});
-            //var plantType = Mapper.Map<ObservableCollection<PlantTypeViewModel>>(dataBase.PlantTypes.GetSelected(idForm));
-
             return dataBase.PlantTypes.GetPlantTypesOfForm(idForm);
         }
 
+
+        public ObservableCollection<PlantTypeViewModel> GetPlantTypes(int idForm)
+        {
+            Mapper.Reset();
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<PlantType, PlantTypeViewModel>();
+                cfg.CreateMap<Genus, GenusViewModel>();
+                cfg.CreateMap<Family, FamilyViewModel>();
+                cfg.CreateMap<Form, FormViewModel>();
+                cfg.CreateMap<PolarGrainShape, PolarGrainShapeViewModel>();
+                cfg.CreateMap<EquatorialGrainShape, EquatorialGrainShapeViewModel>();
+
+            });
+
+            var plantType = Mapper.Map<ObservableCollection<PlantTypeViewModel>>(dataBase.PlantTypes.GetPlantTypes(idForm));
+            return plantType;
+        }
     }
 }

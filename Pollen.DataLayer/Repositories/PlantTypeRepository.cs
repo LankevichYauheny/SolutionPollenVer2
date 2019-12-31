@@ -56,6 +56,21 @@ namespace Pollen.DataLayer.Repositories
             return db.PlantTypes.Find(id);
         }
 
+        public IEnumerable<PlantType> GetPlantTypes(int idForm)
+        {
+            return db.PlantTypes.Include(p => p.PolarGrainShapes)
+                .Include(p => p.EquatorialGrainShapes)
+                .Include(p => p.Genus)
+                .Include(p => p.Genus.Family)
+                .Include(p => p.Genus.Family.Form)
+                .Where(p =>p.Genus.Family.Form.ID == idForm)
+                //.Include(p => p.AbnormalImages)
+                //.Include(p => p.EquatorialImages)
+                //.Include(p => p.AbnormalImages)
+                //.Include(p => p.Genus)
+                .ToList();
+        }
+
         public IEnumerable<PlantType> GetAll()
         {
             return db.PlantTypes.Include(p => p.PolarGrainShapes)

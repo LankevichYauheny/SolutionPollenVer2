@@ -4,25 +4,28 @@ namespace Pollen.Views
 {
     public partial class MainWindow : Window
     {
-        private MainViewModel vm;
+        private readonly MainViewModel _vm;
         public MainWindow()
         {
             InitializeComponent();
-            vm = new MainViewModel();
-            DataContext = vm;
+            _vm = new MainViewModel();
+            DataContext = _vm;
         }
         private void AddNewItem(object sender, RoutedEventArgs e)
         {
             var add = new Dialogs.AddNewItem.Add();
             add.ShowDialog();
-            vm.Species = vm.plantTypeService.GetAll();
-            
+            _vm.TreesSpecies = _vm.plantTypeService.GetPlantTypes(1);
+            _vm.BushesSpecies = _vm.plantTypeService.GetPlantTypes(2);
+            _vm.GrassesSpecies = _vm.plantTypeService.GetPlantTypes(3);
         }
         private void DelItem(object sender, RoutedEventArgs e)
         {
             var del = new Dialogs.DelExistingItem.Del();
             del.ShowDialog();
-            vm.Species = vm.plantTypeService.GetAll();
+            _vm.TreesSpecies = _vm.plantTypeService.GetPlantTypes(1);
+            _vm.BushesSpecies = _vm.plantTypeService.GetPlantTypes(2);
+            _vm.GrassesSpecies = _vm.plantTypeService.GetPlantTypes(3);
         }
     }
 }

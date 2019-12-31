@@ -21,18 +21,15 @@
             <Setter Property="Margin" Value="5"/>
             <Setter Property="HorizontalContentAlignment" Value="Right"/>
         </Style>
+
     </Window.Resources>
     <Grid>
-        <Button
-                FontSize="16"
-                Width="100"
-                Margin="650,24,10,446"
-                Height="35">диаграммы</Button>
+
         <TabControl>
-            <TabItem x:Name="TabTree" IsSelected="True">
+            <TabItem IsSelected="True">
                 <TabItem.Header>
                     <StackPanel >
-                        <Image Source="../Resources/tree.png" Height="50" OpacityMask="Black"/>
+                        <Image Source="../Resources/tree.png" Height="50"/>
                         <TextBlock Text="ДРЕВЕСНЫЕ" HorizontalAlignment="Center" FontSize="16"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
@@ -59,33 +56,110 @@
                                 <MenuItem Foreground="Black" Header="Редактирование записей в БД"></MenuItem>
                                 <MenuItem Foreground="Black" Click="DelItem" Header="Удаление записей из БД"></MenuItem>
                             </MenuItem>
+                            <MenuItem HorizontalAlignment="Right" Header="ДИАГРАММЫ" Foreground="White" FontSize="16">
+                            </MenuItem>
                         </Menu>
                     </StackPanel>
                     <Grid Grid.Row="1">
                         <Grid.Background>
                             <ImageBrush  ImageSource="../Resources/treeForGrid.png" Stretch="None"/>
                         </Grid.Background>
-                        <DataGrid ItemsSource="{Binding Species}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                        <DataGrid ItemsSource="{Binding TreesSpecies}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.9" FrozenColumnCount="1">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
                                 <DataGridTextColumn Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
 
-                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="количество апертур" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
-                                <!--<DataGridTextColumn  x:Name="Column12" Binding="{Binding PollenColors}" Header="тип апертуры" Width="50">-->
-
-
+                                <DataGridTextColumn Binding="{Binding Name}" MinWidth="100" Width="155">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">форма пыльцевого зерна в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Name}" MinWidth="140" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">форма пыльцевого зерна в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="100" Width="160">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="PollenPolarMinSize"/>
+                                            <Binding Path="PollenPolarMinSize"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">размер пыльцевого зерна в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="140" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="PollenEquatorialMinSize"/>
+                                            <Binding Path="PollenEquatorialMaxSize"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">размер пыльцевого зерна в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="100" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ExinePolarMinThickness"/>
+                                            <Binding Path="ExinePolarMaxThickness"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">толщина экзины в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="140" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ExineEquatorialMinThickness"/>
+                                            <Binding Path="ExineEquatorialMaxThickness"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">толщина экзины в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ApertureStructure}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">структура апертуры</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ApertureNumber}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">количество апертур</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding AperturePosition}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">положение апертуры</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
                             </DataGrid.Columns>
                             <DataGrid.RowDetailsTemplate>
                                 <DataTemplate>
-                                    <Border BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
+                                    <Border CornerRadius="6" BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -122,25 +196,82 @@
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Row="0" Grid.Column="0">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (экваториальное положение)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+
+                                                    
+                                                    
+                                                    <Image Grid.Row="1" Grid.Column="0" Source="C:/Users/User/Desktop/1.jpeg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
+
+
+
+
+
                                                     <Label Grid.Row="0" Grid.Column="1">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (полярное положение)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+
+                                                    <Image Grid.Row="1" Grid.Column="1" Source="C:/Users/User/Desktop/2.jpeg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Label Grid.Row="0" Grid.Column="2">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (аномалии)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+                                                    <Image Grid.Row="1" Grid.Column="2" Source="C:/Users/User/Desktop/3.jpeg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
 
                                                 </Grid>
                                             </Border>
@@ -164,22 +295,9 @@
                                             </Border>
 
 
-                                            <ListBox x:Name="Color" 
-                                                         ItemsSource="{Binding PollenColors}" 
-                                                         SelectedValuePath="ID" 
-                                                         SelectedIndex="0" 
-                                                         Width="auto" 
-                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                                         Background = "Beige"
-                                                         Grid.Row="5" Grid.Column="1"
-                                                         BorderBrush="Black">
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate >
-                                                        <TextBlock Text="{Binding ColorName}"/>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Grid.Column="1">
+                                                <TextBlock Text="{Binding PollenColor}" />
+                                            </Border>
                                         </Grid>
                                     </Border >
                                 </DataTemplate>
@@ -217,29 +335,110 @@
                                 <MenuItem Foreground="Black" Header="Редактирование записей в БД"></MenuItem>
                                 <MenuItem Foreground="Black" Click="DelItem" Header="Удаление записей из БД"></MenuItem>
                             </MenuItem>
+                            <MenuItem HorizontalAlignment="Right" Header="ДИАГРАММЫ" Foreground="White" FontSize="16">
+                            </MenuItem>
                         </Menu>
                     </StackPanel>
                     <Grid Grid.Row="1">
                         <Grid.Background>
                             <ImageBrush  ImageSource="../Resources/bushForGrid.png" Stretch="None"/>
                         </Grid.Background>
-                        <DataGrid ItemsSource="{Binding Species}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                        <DataGrid ItemsSource="{Binding BushesSpecies}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.9" FrozenColumnCount="1">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
                                 <DataGridTextColumn Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="количество апертур" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+
+                                <DataGridTextColumn Binding="{Binding Name}" MinWidth="100" Width="155">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">форма пыльцевого зерна в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Name}" MinWidth="140" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">форма пыльцевого зерна в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="100" Width="160">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="PollenPolarMinSize"/>
+                                            <Binding Path="PollenPolarMinSize"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">размер пыльцевого зерна в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="140" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="PollenEquatorialMinSize"/>
+                                            <Binding Path="PollenEquatorialMaxSize"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">размер пыльцевого зерна в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="100" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ExinePolarMinThickness"/>
+                                            <Binding Path="ExinePolarMaxThickness"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">толщина экзины в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="140" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ExineEquatorialMinThickness"/>
+                                            <Binding Path="ExineEquatorialMaxThickness"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">толщина экзины в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ApertureStructure}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">структура апертуры</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ApertureNumber}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">количество апертур</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding AperturePosition}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">положение апертуры</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
                             </DataGrid.Columns>
                             <DataGrid.RowDetailsTemplate>
                                 <DataTemplate>
-                                    <Border BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
+                                    <Border CornerRadius="6" BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -275,25 +474,73 @@
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Row="0" Grid.Column="0">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (экваториальное положение)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+                                                    <Image Grid.Row="1" Grid.Column="0" Source="C:/Users/User/Desktop/k1.jpg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Label Grid.Row="0" Grid.Column="1">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (полярное положение)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+                                                    <Image Grid.Row="1" Grid.Column="1" Source="C:/Users/User/Desktop/k3.jpg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Label Grid.Row="0" Grid.Column="2">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (аномалии)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+                                                    <Image Grid.Row="1" Grid.Column="2" Source="C:/Users/User/Desktop/k2.jpg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
 
                                                 </Grid>
                                             </Border>
@@ -315,22 +562,9 @@
                                             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Grid.Column="1">
                                                 <TextBlock Text="{Binding DustingTime}" />
                                             </Border>
-                                            <ListBox x:Name="Color" 
-                                                         ItemsSource="{Binding PollenColors}" 
-                                                         SelectedValuePath="ID" 
-                                                         SelectedIndex="0" 
-                                                         Width="auto" 
-                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                                         Background = "Beige"
-                                                         Grid.Row="5" Grid.Column="1"
-                                                         BorderBrush="Black">
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate >
-                                                        <TextBlock Text="{Binding ColorName}"/>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Grid.Column="1">
+                                                <TextBlock Text="{Binding PollenColor}" />
+                                            </Border>
                                         </Grid>
                                     </Border >
                                 </DataTemplate>
@@ -339,7 +573,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Name="TabGrass">
+            <TabItem>
                 <TabItem.Header>
                     <StackPanel>
                         <Image Source="../Resources/grass.png" Height="50"></Image>
@@ -368,29 +602,110 @@
                                 <MenuItem Foreground="Black" Header="Редактирование записей в БД"></MenuItem>
                                 <MenuItem Foreground="Black" Click="DelItem" Header="Удаление записей из БД"></MenuItem>
                             </MenuItem>
+                            <MenuItem HorizontalAlignment="Right" Header="ДИАГРАММЫ" Foreground="White" FontSize="16">
+                            </MenuItem>
                         </Menu>
                     </StackPanel>
                     <Grid Grid.Row="1">
                         <Grid.Background>
                             <ImageBrush  ImageSource="../Resources/grassForGrid.png" Stretch="None"/>
                         </Grid.Background>
-                        <DataGrid ItemsSource="{Binding Species}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.8" HorizontalGridLinesBrush="Gray" FrozenColumnCount="1">
+                        <DataGrid ItemsSource="{Binding GrassesSpecies}" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" Opacity="0.9" FrozenColumnCount="1">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding NameRU}" Header="название вида" Width="auto"/>
                                 <DataGridTextColumn Binding="{Binding PollenSculpture}" Header="скульптура (СМ)" Width="auto"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="форма пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="размер пыльцевого зерна в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в полярном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="толщина экзины в экваториальном положении" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="структура апертуры" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="количество апертур" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="положение апертуры" Width="50"/>
+
+                                <DataGridTextColumn Binding="{Binding Name}" MinWidth="100" Width="155">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">форма пыльцевого зерна в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Name}" MinWidth="140" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">форма пыльцевого зерна в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="100" Width="160">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="PollenPolarMinSize"/>
+                                            <Binding Path="PollenPolarMinSize"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">размер пыльцевого зерна в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="140" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="PollenEquatorialMinSize"/>
+                                            <Binding Path="PollenEquatorialMaxSize"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">размер пыльцевого зерна в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="100" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ExinePolarMinThickness"/>
+                                            <Binding Path="ExinePolarMaxThickness"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">толщина экзины в полярном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn MinWidth="140" Width="155">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ExineEquatorialMinThickness"/>
+                                            <Binding Path="ExineEquatorialMaxThickness"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">толщина экзины в экваториальном положении</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ApertureStructure}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">структура апертуры</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ApertureNumber}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">количество апертур</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding AperturePosition}" MinWidth="100" Width="160">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock TextWrapping="Wrap">положение апертуры</TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
                             </DataGrid.Columns>
-                            <DataGrid.RowDetailsTemplate>
+                            <DataGrid.RowDetailsTemplate >
                                 <DataTemplate>
-                                    <Border BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
+                                    <Border CornerRadius="6"  BorderThickness = "3" BorderBrush="Black" Background = "Beige" Padding = "10">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -426,26 +741,73 @@
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Row="0" Grid.Column="0">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (экваториальное положение)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+                                                    <Image Grid.Row="1" Grid.Column="0" Source="C:/Users/User/Desktop/1.jpeg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Label Grid.Row="0" Grid.Column="1">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (полярное положение)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
+                                                    <Image Grid.Row="1" Grid.Column="1" Source="C:/Users/User/Desktop/2.jpeg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Label Grid.Row="0" Grid.Column="2">
                                                         <Label.Content>
                                                             <TextBlock TextWrapping="Wrap">ИЗОБРАЖЕНИЕ (аномалии)</TextBlock>
                                                         </Label.Content>
                                                     </Label>
-
+                                                    <Image Grid.Row="1" Grid.Column="2" Source="C:/Users/User/Desktop/3.jpeg">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Width" Value="300"/>
+                                                                        <Setter Property="Height" Value="300"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Width" Value="100"/>
+                                                                        <Setter Property="Height" Value="100"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                 </Grid>
                                             </Border>
                                             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1">
@@ -466,22 +828,9 @@
                                             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Grid.Column="1">
                                                 <TextBlock Text="{Binding DustingTime}" />
                                             </Border>
-                                            <ListBox x:Name="Color" 
-                                                         ItemsSource="{Binding PollenColors}" 
-                                                         SelectedValuePath="ID" 
-                                                         SelectedIndex="0" 
-                                                         Width="auto" 
-                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                                         Background = "Beige"
-                                                         Grid.Row="5" Grid.Column="1"
-                                                         BorderBrush="Black">
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate >
-                                                        <TextBlock Text="{Binding ColorName}"/>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
+                                            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Grid.Column="1">
+                                                <TextBlock Text="{Binding PollenColor}" />
+                                            </Border>
                                         </Grid>
                                     </Border >
                                 </DataTemplate>
