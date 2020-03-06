@@ -63,11 +63,12 @@ namespace Pollen.DataLayer.Repositories
                 .Include(p => p.Genus)
                 .Include(p => p.Genus.Family)
                 .Include(p => p.Genus.Family.Form)
+                .Include(p => p.PolarImages)
+                .Include(p => p.EquatorialImages)
+                .Include(p => p.AbnormalImages)
+                .Include(p => p.PolarGrainShapes)
+                .Include(p => p.EquatorialGrainShapes)
                 .Where(p =>p.Genus.Family.Form.ID == idForm)
-                //.Include(p => p.AbnormalImages)
-                //.Include(p => p.EquatorialImages)
-                //.Include(p => p.AbnormalImages)
-                //.Include(p => p.Genus)
                 .ToList();
         }
 

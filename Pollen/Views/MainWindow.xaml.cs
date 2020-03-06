@@ -1,31 +1,22 @@
 ﻿using System.Windows;
 using Pollen.ViewModels;
+using Pollen.Interfaces;
+
 namespace Pollen.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IView
     {
-        private readonly MainViewModel _vm;
+        public IViewModel ViewModel
+        {
+            get => DataContext as IViewModel;
+            set => DataContext = value;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            _vm = new MainViewModel();
-            DataContext = _vm;
-        }
-        private void AddNewItem(object sender, RoutedEventArgs e)
-        {
-            var add = new Dialogs.AddNewItem.Add();
-            add.ShowDialog();
-            _vm.TreesSpecies = _vm.plantTypeService.GetPlantTypes(1);
-            _vm.BushesSpecies = _vm.plantTypeService.GetPlantTypes(2);
-            _vm.GrassesSpecies = _vm.plantTypeService.GetPlantTypes(3);
-        }
-        private void DelItem(object sender, RoutedEventArgs e)
-        {
-            var del = new Dialogs.DelExistingItem.Del();
-            del.ShowDialog();
-            _vm.TreesSpecies = _vm.plantTypeService.GetPlantTypes(1);
-            _vm.BushesSpecies = _vm.plantTypeService.GetPlantTypes(2);
-            _vm.GrassesSpecies = _vm.plantTypeService.GetPlantTypes(3);
+            var vm = new MainViewModel();
+            DataContext = vm;
         }
     }
 }

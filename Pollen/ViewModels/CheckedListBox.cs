@@ -5,7 +5,7 @@ using Pollen.Models;
 
 namespace Pollen.ViewModels
 {
-    public class CheckedListBox : INotifyPropertyChanged
+    public class CheckedListBox : ViewModelBase
     {
         public CheckedListBox(IPlantTypeService plantTypeService, int idForm)
         {
@@ -51,12 +51,6 @@ namespace Pollen.ViewModels
                 }
                 OnPropertyChanged("IsAllChecked");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -45,7 +45,13 @@ namespace Pollen.BusinessLayer.Services
         public ObservableCollection<GenusViewModel> GetAll()
         {
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Genus, GenusViewModel>());
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Genus, GenusViewModel>();
+                cfg.CreateMap<PlantType, PlantTypeViewModel>();
+                cfg.CreateMap<PolarGrainShape, PolarGrainShapeViewModel>();
+                cfg.CreateMap<EquatorialGrainShape, EquatorialGrainShapeViewModel>();
+            });
 
             // Отображение List<Genus> на ObservableCollection<GenusViewModel>
             var genus = Mapper.Map<ObservableCollection<GenusViewModel>>(dataBase.Genera.GetAll());

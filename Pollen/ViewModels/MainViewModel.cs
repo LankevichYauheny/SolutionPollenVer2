@@ -1,32 +1,46 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Windows;
 using Pollen.BusinessLayer.Interfaces;
 using Pollen.BusinessLayer.Services;
 using Pollen.BusinessLayer.ViewModels;
+using Pollen.Infrastructure;
+using Pollen.Interfaces;
 
 namespace Pollen.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase, IViewModel
     {
-        public IPlantTypeService plantTypeService;
+        public IPlantTypeService _plantTypeService;
+
         public MainViewModel()
         {
-            plantTypeService = new PlantTypeService("Context");
+            AddNewItemCommand = new RelayCommand(AddNewItem, null);
+            DelItemCommand = new RelayCommand(DelItem, null);
+            UpdateItemCommand = new RelayCommand(UpdateItem, null);
+
+            _plantTypeService = new PlantTypeService("Context");
             InitializeGrids();
         }
 
         private void InitializeGrids()
         {
-            Tree = new CheckedListBox(plantTypeService, 1);
-            Bush = new CheckedListBox(plantTypeService, 2);
-            Grass = new CheckedListBox(plantTypeService, 3);
+            Tree = new CheckedListBox(_plantTypeService, 1);
+            Bush = new CheckedListBox(_plantTypeService, 2);
+            Grass = new CheckedListBox(_plantTypeService, 3);
 
-            TreesSpecies = plantTypeService.GetPlantTypes(1);
-            BushesSpecies = plantTypeService.GetPlantTypes(2);
-            GrassesSpecies = plantTypeService.GetPlantTypes(3);
+
+            TreesSpecies = _plantTypeService.GetPlantTypes(1);
+            //var x = TreesSpecies.FirstOrDefault(s => s != null)?.PolarImages.FirstOrDefault(i => i !=null).FileContents;
+            BushesSpecies = _plantTypeService.GetPlantTypes(2);
+            GrassesSpecies = _plantTypeService.GetPlantTypes(3);
         }
 
         private CheckedListBox _tree;
+
         public CheckedListBox Tree
         {
             get { return _tree; }
@@ -38,6 +52,7 @@ namespace Pollen.ViewModels
         }
 
         private CheckedListBox _bush;
+
         public CheckedListBox Bush
         {
             get { return _bush; }
@@ -49,6 +64,7 @@ namespace Pollen.ViewModels
         }
 
         private CheckedListBox _grass;
+
         public CheckedListBox Grass
         {
             get { return _grass; }
@@ -60,6 +76,7 @@ namespace Pollen.ViewModels
         }
 
         private ObservableCollection<PlantTypeViewModel> _treesSpecies;
+
         public ObservableCollection<PlantTypeViewModel> TreesSpecies
         {
             get { return _treesSpecies; }
@@ -71,6 +88,7 @@ namespace Pollen.ViewModels
         }
 
         private ObservableCollection<PlantTypeViewModel> _bushesSpecies;
+
         public ObservableCollection<PlantTypeViewModel> BushesSpecies
         {
             get { return _bushesSpecies; }
@@ -82,6 +100,7 @@ namespace Pollen.ViewModels
         }
 
         private ObservableCollection<PlantTypeViewModel> _grassesSpecies;
+
         public ObservableCollection<PlantTypeViewModel> GrassesSpecies
         {
             get { return _grassesSpecies; }
@@ -92,11 +111,57 @@ namespace Pollen.ViewModels
             }
         }
 
+        #region Commands
+        public RelayCommand AddNewItemCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop)
+        public RelayCommand DelItemCommand { get; }
+
+        public RelayCommand UpdateItemCommand { get; }
+        #endregion
+
+        private void AddNewItem(object parameter)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            try
+            {
+                var add = new Dialogs.AddNewItem.Add();
+                add.ShowDialog();
+                TreesSpecies = _plantTypeService.GetPlantTypes(1);
+                BushesSpecies = _plantTypeService.GetPlantTypes(2);
+                GrassesSpecies = _plantTypeService.GetPlantTypes(3);
+            }
+            catch (SecurityException)
+            {
+            }
+        }
+
+        private void DelItem(object parameter)
+        {
+            try
+            {
+                var del = new Dialogs.DelExistingItem.Del();
+                del.ShowDialog();
+                TreesSpecies = _plantTypeService.GetPlantTypes(1);
+                BushesSpecies = _plantTypeService.GetPlantTypes(2);
+                GrassesSpecies = _plantTypeService.GetPlantTypes(3);
+            }
+            catch (SecurityException)
+            {
+            }
+        }       
+        
+        private void UpdateItem(object parameter)
+        {
+            try
+            {
+                var del = new Dialogs.DelExistingItem.Del();
+                del.ShowDialog();
+                TreesSpecies = _plantTypeService.GetPlantTypes(1);
+                BushesSpecies = _plantTypeService.GetPlantTypes(2);
+                GrassesSpecies = _plantTypeService.GetPlantTypes(3);
+            }
+            catch (SecurityException)
+            {
+            }
         }
     }
 }

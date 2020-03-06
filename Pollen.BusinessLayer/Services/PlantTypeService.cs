@@ -150,6 +150,11 @@ namespace Pollen.BusinessLayer.Services
                 cfg.CreateMap<Form, FormViewModel>();
                 cfg.CreateMap<PolarGrainShape, PolarGrainShapeViewModel>();
                 cfg.CreateMap<EquatorialGrainShape, EquatorialGrainShapeViewModel>();
+                cfg.CreateMap<EquatorialImage, EquatorialImageViewModel>();
+                cfg.CreateMap<PolarImage, PolarImageViewModel>();
+                cfg.CreateMap<AbnormalImage, AbnormalImageViewModel>();
+                cfg.CreateMap<PolarGrainShape, PolarGrainShapeViewModel>();
+                cfg.CreateMap<EquatorialGrainShape, EquatorialGrainShapeViewModel>();
 
             });
 

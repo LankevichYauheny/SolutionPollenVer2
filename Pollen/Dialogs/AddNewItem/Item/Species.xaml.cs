@@ -27,7 +27,9 @@ namespace Pollen.Dialogs.AddNewItem.Item
             {
                 PolarImages = new ObservableCollection<PolarImageViewModel>(),
                 AbnormalImages = new ObservableCollection<AbnormalImageViewModel>(),
-                EquatorialImages = new ObservableCollection<EquatorialImageViewModel>()
+                EquatorialImages = new ObservableCollection<EquatorialImageViewModel>(),
+                PolarGrainShapes = new ObservableCollection<PolarGrainShapeViewModel>(),
+                EquatorialGrainShapes = new ObservableCollection<EquatorialGrainShapeViewModel>()
             };
             _pathsToPolarImages = new List<string>();
             _pathsToEquatorialImages = new List<string>();
@@ -94,8 +96,8 @@ namespace Pollen.Dialogs.AddNewItem.Item
                         _plantTypeVM.ExinePolarMaxThickness = Convert.ToDecimal(ExinePolarMax.Text);
                         _plantTypeVM.ExineEquatorialMinThickness = Convert.ToDecimal(ExineEquatorialMin.Text);
                         _plantTypeVM.ExineEquatorialMaxThickness = Convert.ToDecimal(ExineEquatorialMax.Text);
-                        //_plantTypeVM.PolarGrainShapes = new ObservableCollection<PolarGrainShapeViewModel>(new PolarGrainShapeViewModel(){Name = PolarGrainShape.Text, PlantTypes = _plantTypeVM, ID = 1});
-                        //_plantTypeVM.EquatorialGrainShapes =
+                        _plantTypeVM.PolarGrainShapes.Add(new PolarGrainShapeViewModel() {Name = PolarGrainShape.Text});
+                        _plantTypeVM.EquatorialGrainShapes.Add(new EquatorialGrainShapeViewModel() {Name = EquatorialGrainShape.Text});
                         _plantTypeVM.PollenColor = PollenColor.Text;
 
 

@@ -5,6 +5,10 @@ namespace Pollen.BusinessLayer.ViewModels
     public class PlantTypeViewModel
     {
         public int ID { get; set; }
+
+        public string FamilyName { get; set; }
+        public string GenusName { get; set; }
+
         public string NameEN { get; set; }
         public string NameRU { get; set; }
         public string AdditionalNameRU { get; set; }
@@ -25,6 +29,7 @@ namespace Pollen.BusinessLayer.ViewModels
         public decimal ExineEquatorialMaxThickness { get; set; }
         public string PollenColor { get; set; }
         public int ID_Genus { get; set; }
+
         public ObservableCollection<EquatorialGrainShapeViewModel> EquatorialGrainShapes { get; set; }
         public ObservableCollection<PolarGrainShapeViewModel> PolarGrainShapes { get; set; }
 
